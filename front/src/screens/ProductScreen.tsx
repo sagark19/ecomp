@@ -62,7 +62,7 @@ export const ProductScreen:React.FC<RouteComponentProps<routingProps>>= ({ match
                                         </Col>
                                     </Row>
                                 </ListGroupItem>
-                                <ListGroupItem disabled={product.countInStock == 0}>
+                                <ListGroupItem disabled={product.countInStock === 0}>
                                 <Button type="button" className="btn btn-lg btn-primary">Add To Cart</Button>
                                 </ListGroupItem>
 
