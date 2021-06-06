@@ -1,20 +1,19 @@
 import express from 'express';
+import cors from 'cors'
 import { info } from './config/logging';
 import config from './config/config';
 import mongoose from 'mongoose'
-
+import productRoute from './routes/productRoutes'
 const NAMESPACE = 'Server';
 const app = express();
 
 
 // connection to mongoDB
-mongoose
-    .connect(config.mongo.url, config.mongo.options)
-    .then((result) => {
-        info(NAMESPACE, 'Mongo Connected');
+mongoose.connect(config.mongo.url, config.mongo.options).then((result) => {
+        info(NAMESPACE, 'MongoDB Connected');
     })
     .catch((error) => {
-        error(NAMESPACE, error.message, error);
+        info(NAMESPACE, error.message, error);
     });
 
 // Log the request 
@@ -29,20 +28,21 @@ app.use((req, res, next) => {
 });
 
 /** Parse the body of the request */
-
-
+app.use(cors());
+app.use(express.json());
+app.use('/api/products',productRoute)
 /** Rules of our API */
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-    if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
-    }
+//     if (req.method == 'OPTIONS') {
+//         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//         return res.status(200).json({});
+//     }
 
-    next();
-});
+//     next();
+// });
 
 // Routes go here 
 
