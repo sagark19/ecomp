@@ -24,9 +24,20 @@ export const addProduct = async (req:Request,res:Response) => {
 }
 
 export const getProducts = async (req:Request,res:Response) => {
-    
     try{
         const products = await Product.find({});
+        console.log(products)
+        res.status(201).json(products)
+    }catch(error){
+        res.status(404).json(error)
+        console.log('error',error)
+    }
+}
+
+export const getProductDetails = async (req:Request,res:Response) => {
+    const {id} = req.params
+    try{
+        const products = await Product.findById({_id:id});
         res.status(201).json(products)
     }catch(error){
         res.status(404).json(error)

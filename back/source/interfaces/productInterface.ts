@@ -6,7 +6,7 @@ export interface IProduct {
     category:string
     price:string
     countInStock:string
-    rating:string
+    rating:number
     numReview:string
 }
 

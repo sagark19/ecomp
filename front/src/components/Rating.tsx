@@ -5,7 +5,7 @@ interface ratingProp {
 }
 
 
-export const  Rating:React.FC<ratingProp> = (ratingProp:ratingProp ) => {
+export const  Rating:React.FC<ratingProp> = (ratingProp) => {
     return ( 
         <div>
             <span color={ratingProp.color} >
